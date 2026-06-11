@@ -1,0 +1,283 @@
+@charset "UTF-8";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.start{
+    position: fixed ;
+    display: flex;
+    inset:0;
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 100;
+    flex-direction: column;
+    align-items:center ;
+    justify-content:center;
+    background-color: rgba(0, 0, 0, 0.866);
+}
+
+.titulo-iniciar{
+    background-color: #5d696db6;
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-radius: 5px;
+    font-size: 3em;
+    padding: 10px;
+    margin: 80px;
+}
+
+.start-game{
+    font-size: 2em;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.start-game:hover{
+    background-color: #534f4f74;
+}
+
+.game-board{
+    width: 100vw;
+    height: 500px;
+    border-bottom: 15px solid rgb(23, 186, 23);
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(#87CEEB, #e0f6ff);
+}
+
+.pipe{
+    position: absolute;
+    bottom: 0;
+    width: 60px;
+    animation:pipe-animation 1.7s infinite linear ;
+    animation-play-state: paused;
+
+    z-index: 1;
+}
+
+.mario-idle{
+
+    background-image: url(../img/sky-idle.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0;
+
+    background-size: 240px 120px;
+
+    animation:idle-animation 0.5s steps(2) infinite ;
+}
+
+.mario {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    bottom: 0;
+}
+
+.mario-run {
+    background-image: url(../img/sky-run.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 480px 120px;
+
+    animation: run-animation 0.5s steps(4, end) infinite;
+    z-index: 2;
+}
+
+.mario-dead {
+    background-image: url(../img/Die.png) !important;
+    background-size: 720px 120px !important;
+
+    animation: death-animation 0.6s steps(5) forwards !important;
+}
+
+
+.clouds{
+    position: absolute;
+    width: 40vw;
+    max-width: 700px;
+    min-width: 250px;
+    animation: clouds-animation 20s infinite linear;
+    animation-play-state: paused;
+    
+}
+
+.jump{
+    animation: jump 500ms  ease-out;
+}
+
+.game-over .clouds{
+    animation-play-state: paused;
+}
+
+.score{
+    position: fixed;
+    border: 1px solid black;
+    margin-left: 10px;
+    top: 20px;
+    font-size: 40px;
+    padding: 5px 10px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    background:rgba(0, 0, 0, 0.704);
+    border-radius: 10px;
+}
+
+#restart{
+    display: none;
+    position: fixed;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    border: none;
+    background-color: #000000 !important;
+    color: #ffffff !important; 
+    padding: 15px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1000 !important;
+    font-family: Arial, sans-serif;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+#restart:hover{
+    background-color: rgba(0, 0, 0, 0.627) !important;
+}
+
+
+@keyframes pipe-animation {
+    from {
+        right: -80px;
+    }
+
+    to {
+        right: 100%;
+    }
+}
+
+@keyframes jump{
+    0% {
+        bottom: 0;
+    }
+
+    40%{
+        bottom: 180px;
+    }
+    
+    50%{
+        bottom: 180px;
+    }
+
+    60%{
+        bottom: 180px;
+    }
+
+    100%{
+        bottom: 0;
+    }
+}
+
+@keyframes clouds-animation {
+    from {
+        right: -300px;
+    }
+
+    to{
+        right: 100%;
+    }
+    
+}
+
+@keyframes idle-animation {
+    from{
+        background-position:0px 0 ;
+    }
+    to{
+        background-position: -240px 0 ;
+    }
+}
+
+@keyframes run-animation {
+    from {
+        background-position: 0px 0;
+    }
+    to {
+        background-position: -480px 0;
+    }
+}
+
+@keyframes death-animation {
+    from{
+        background-position: 0px 0;
+    }
+    to {
+        background-position: -600px 0;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .game-board {
+        height: 75vh;
+    }
+
+    .mario{
+        width: 120px;
+    }
+
+    .pipe{
+        width: 70px;
+    }
+
+    .clouds {
+        width: 450px;
+    }
+
+
+}
+
+@media (orientation: landscape){ 
+    .game-board {
+        height: 75vh; 
+        } 
+
+    .mario { 
+        width: 120px; 
+    } 
+
+    .pipe { 
+        width: 55px;
+     }
+
+    .clouds{
+        width: 450px;
+     }
+
+    }
+
+body{
+    overflow: hidden;
+}
+
+
+/* .mario {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    bottom: 0;
+
+    background-image: url(../img/sky-run.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0;
+   
+   
+    background-size: 480px 120px;
+
+    animation: run-animation 0.5s steps(4, end) infinite;
+} */

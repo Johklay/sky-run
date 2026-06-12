@@ -48,7 +48,7 @@ const loop = () =>{
         hasScored = true;
     }
 
-    if(pipePosition > window.innerWidth){
+    if(pipePosition > (window.innerWidth / 2 )){
         hasScored = false;
     }
     

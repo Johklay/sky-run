@@ -23,7 +23,7 @@
 .titulo-iniciar{
     background-color: #5d696db6;
     color: white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border-radius: 5px;
     font-size: 3em;
     padding: 10px;
@@ -32,7 +32,7 @@
 
 .start-game{
     font-size: 2em;
-    border-radius: 3px;
+    border-radius: 10px;
     padding: 5px;
 }
 
@@ -43,17 +43,22 @@
 .game-board{
     width: 100vw;
     height: 500px;
-    border-bottom: 15px solid rgb(23, 186, 23);
+    border-bottom: 15px solid rgb(40, 101, 40);
     margin: 0 auto;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(#87CEEB, #e0f6ff);
+    background: linear-gradient(#016b95, #e0f6ff);
 }
 
 .pipe{
     position: absolute;
     bottom: 0;
-    width: 60px;
+    width: 300px;
+    height: auto;
+    image-rendering: pixelated;
+
+    transform: translateY(25px);
+
     animation:pipe-animation 1.7s infinite linear ;
     animation-play-state: paused;
 
@@ -101,6 +106,7 @@
     width: 40vw;
     max-width: 700px;
     min-width: 250px;
+    image-rendering: pixelated;
     animation: clouds-animation 20s infinite linear;
     animation-play-state: paused;
     
@@ -148,6 +154,24 @@
 
 #restart:hover{
     background-color: rgba(0, 0, 0, 0.627) !important;
+}
+
+.creditos {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #555;
+    margin-top: 20px;
+}
+
+.creditos a {
+    color: #0076a3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.creditos a:hover {
+    text-decoration: underline;
 }
 
 
@@ -232,7 +256,7 @@
     }
 
     .pipe{
-        width: 70px;
+        width: 115px;
     }
 
     .clouds {
@@ -252,7 +276,7 @@
     } 
 
     .pipe { 
-        width: 55px;
+        width: 115px;
      }
 
     .clouds{

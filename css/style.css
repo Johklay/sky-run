@@ -41,6 +41,7 @@
 }
 
 .game-board{
+    position: relative;
     width: 100vw;
     height: 500px;
     border-bottom: 15px solid rgb(40, 101, 40);
@@ -112,6 +113,25 @@
     
 }
 
+.coin {
+    position: absolute;
+    bottom: 150px;
+    left: 100%; 
+    
+    width: 60px;
+    height: 60px;
+
+    background-image: url(../img/sky-coin.png);
+    background-repeat: no-repeat;
+    background-size: 460px 60px;
+
+    animation: coin-animation 0.8s steps(8) infinite,
+               coin-move 3s linear infinite;
+
+    animation-play-state: paused; 
+    opacity: 0; 
+}
+
 .jump{
     animation: jump 500ms  ease-out;
 }
@@ -154,6 +174,12 @@
 
 #restart:hover{
     background-color: rgba(0, 0, 0, 0.627) !important;
+}
+
+.game-over .pipe,
+.game-over .clouds,
+.game-over .coin {
+    animation-play-state: paused;
 }
 
 .creditos {
@@ -227,6 +253,20 @@
     }
 }
 
+@keyframes coin-animation {
+    from{
+        background-position: 0px 0;
+    }
+    to {
+        background-position: -460px 0;
+    }
+}
+
+@keyframes coin-move {
+    from { left: 100%; }
+    to { left: -60px; } /* Ajustado para sumir totalmente da tela antes de reiniciar */
+}
+
 @keyframes run-animation {
     from {
         background-position: 0px 0;
@@ -288,20 +328,3 @@
 body{
     overflow: hidden;
 }
-
-
-/* .mario {
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    bottom: 0;
-
-    background-image: url(../img/sky-run.png);
-    background-repeat: no-repeat;
-    background-position: 0px 0;
-   
-   
-    background-size: 480px 120px;
-
-    animation: run-animation 0.5s steps(4, end) infinite;
-} */

@@ -1,11 +1,11 @@
-const mario = document.querySelector('.mario');
+const sky = document.querySelector('.sky');
 const pipe = document.querySelector('.pipe');
-const cloud = document.querySelector('.clouds');
 const startButton = document.querySelector('.start-game');
 const startScreen = document.querySelector('.start');
 const coin = document.querySelector('.coin');
 const scoreDisplay = document.querySelector('.score');
 const restartButton = document.getElementById('restart');
+const fundo = document.querySelector('.background-panoramico'); // Seleciona o fundo panorâmico
 
 let gameStarted = false;
 let coinCollected = false;
@@ -17,23 +17,24 @@ const jump = (event) => {
 
     if (!gameStarted) return;
     if (document.body.classList.contains('game-over')) return;
-    if (mario.classList.contains('jump')) return;
+    if (sky.classList.contains('jump')) return;
 
-    mario.classList.add('jump');
+    sky.classList.add('jump');
 };
 
 startButton.addEventListener('click', () => {
+    if (fundo) fundo.style.animationPlayState = 'running'; // Inicia o fundo se ele existir
+
     gameStarted = true;
     startScreen.style.display = 'none';
 
     pipe.style.animationPlayState = 'running';
-    cloud.style.animationPlayState = 'running';
     
     coin.style.opacity = '1';
     coin.style.animationPlayState = 'running';
 
-    mario.classList.remove('mario-idle');
-    mario.classList.add('mario-run');
+    sky.classList.remove('sky-idle');
+    sky.classList.add('sky-run');
 });
 
 
@@ -46,17 +47,17 @@ const loop = () => {
     const pipePosition = pipe.offsetLeft;
     const coinPosition = coin.offsetLeft;
     const coinWidth = coin.clientWidth;
-    const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
+    const skyPosition = +window.getComputedStyle(sky).bottom.replace('px', '');
     
-    const marioLeft = mario.offsetLeft;
-    const marioWidth = mario.clientWidth;
-    const marioRight = marioLeft + marioWidth; 
+    const skyLeft = sky.offsetLeft;
+    const skyWidth = sky.clientWidth;
+    const skyRight = skyLeft + skyWidth; 
 
     const coinStart = coinPosition;
     const coinEnd = coinStart + coinWidth;
 
-    const coinCollisionHorizontal = marioRight >= coinStart && marioLeft <= coinEnd;
-    const coinCollisionVertical = marioPosition >= 120;
+    const coinCollisionHorizontal = skyRight >= coinStart && skyLeft <= coinEnd;
+    const coinCollisionVertical = skyPosition >= 120;
 
     if (coinCollisionHorizontal && coinCollisionVertical && !coinCollected) {
         coinCollected = true;
@@ -69,22 +70,21 @@ const loop = () => {
     const alturaDoCogumelo = 45; 
     const inicioDoDesenhoVermelho = pipePosition + (pipeWidth * 0.42); 
     const fimDoDesenhoVermelho = pipePosition + (pipeWidth * 0.58);    
-    const colidiuLateral = marioRight >= inicioDoDesenhoVermelho && marioLeft <= fimDoDesenhoVermelho;
-    const colidiuVertical = marioPosition < alturaDoCogumelo;
+    const colidiuLateral = skyRight >= inicioDoDesenhoVermelho && skyLeft <= fimDoDesenhoVermelho;
+    const colidiuVertical = skyPosition < alturaDoCogumelo;
 
     if (colidiuLateral && colidiuVertical) {
         pipe.style.animation = 'none';
         pipe.style.left = `${pipePosition}px`;
 
-        mario.style.animation = 'none';
-        mario.style.bottom = `${marioPosition}px`;
+        sky.style.animation = 'none';
+        sky.style.bottom = `${skyPosition}px`;
 
-        const cloudPosition = cloud.offsetLeft;
-        cloud.style.animation = 'none';
-        cloud.style.left = `${cloudPosition}px`;
+       
+        if (fundo) fundo.style.animationPlayState = 'paused';
 
         document.body.classList.add('game-over');
-        mario.classList.add('mario-dead');
+        sky.classList.add('sky-dead');
 
         coin.style.animationPlayState = 'paused';
         coin.style.opacity = '0';
@@ -119,8 +119,8 @@ if (restartButton) {
 document.addEventListener('keydown', jump);
 document.addEventListener('touchstart', jump, { passive: false });
 
-mario.addEventListener('animationend', () => {
-    mario.classList.remove('jump');
+sky.addEventListener('animationend', () => {
+    sky.classList.remove('jump');
 });
 
 loop();

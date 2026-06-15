@@ -44,11 +44,32 @@
     position: relative;
     width: 100vw;
     height: 500px;
-    border-bottom: 15px solid rgb(40, 101, 40);
+    border-bottom: 15px solid rgb(23, 76, 38);
     margin: 0 auto;
-    position: relative;
     overflow: hidden;
     background: linear-gradient(#016b95, #e0f6ff);
+}
+
+.background-panoramico {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%; /* Corrigido de 100vh para 100% para não vazar o chão */
+    z-index: 0; 
+
+    background-image: url(../img/ceu-completo.png);
+
+      background-position: center bottom; 
+    background-repeat: no-repeat; 
+
+    background-size: 120vw 100%;       
+    background-repeat: repeat-x; 
+    
+    image-rendering: pixelated; 
+
+    animation: mover-cenario-fundo 40s infinite linear;
+    animation-play-state: paused;
 }
 
 .pipe{
@@ -66,8 +87,7 @@
     z-index: 1;
 }
 
-.mario-idle{
-
+.sky-idle{
     background-image: url(../img/sky-idle.png);
     background-repeat: no-repeat;
     background-position: 0px 0;
@@ -77,14 +97,15 @@
     animation:idle-animation 0.5s steps(2) infinite ;
 }
 
-.mario {
+.sky {
     position: absolute;
     width: 120px;
     height: 120px;
     bottom: 0;
+    z-index: 2;
 }
 
-.mario-run {
+.sky-run {
     background-image: url(../img/sky-run.png);
     background-repeat: no-repeat;
     background-position: 0 0;
@@ -94,23 +115,15 @@
     z-index: 2;
 }
 
-.mario-dead {
+.sky-dead {
     background-image: url(../img/Die.png) !important;
     background-size: 720px 120px !important;
 
     animation: death-animation 0.6s steps(5) forwards !important;
 }
 
-
-.clouds{
-    position: absolute;
-    width: 40vw;
-    max-width: 700px;
-    min-width: 250px;
-    image-rendering: pixelated;
-    animation: clouds-animation 20s infinite linear;
-    animation-play-state: paused;
-    
+.pipe, .coin, .player { 
+    z-index: 3; 
 }
 
 .coin {
@@ -136,10 +149,6 @@
     animation: jump 500ms  ease-out;
 }
 
-.game-over .clouds{
-    animation-play-state: paused;
-}
-
 .score{
     position: fixed;
     border: 1px solid black;
@@ -156,7 +165,6 @@
 #restart{
     display: none;
     position: fixed;
-    color: white;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -176,10 +184,12 @@
     background-color: rgba(0, 0, 0, 0.627) !important;
 }
 
+/* Agrupamento do Game Over corrigido com as vírgulas certas */
 .game-over .pipe,
-.game-over .clouds,
-.game-over .coin {
-    animation-play-state: paused;
+.game-over .coin,
+.game-over .background-panoramico,
+.game-board.game-over .background-panoramico {
+    animation-play-state: paused !important;
 }
 
 .creditos {
@@ -200,6 +210,15 @@
     text-decoration: underline;
 }
 
+
+@keyframes mover-cenario-fundo {
+    from {
+        background-position: 0px bottom;
+    }
+    to {
+        background-position: -120vw bottom;
+    }
+}
 
 @keyframes pipe-animation {
     from {
@@ -233,17 +252,6 @@
     }
 }
 
-@keyframes clouds-animation {
-    from {
-        right: -300px;
-    }
-
-    to{
-        right: 100%;
-    }
-    
-}
-
 @keyframes idle-animation {
     from{
         background-position:0px 0 ;
@@ -264,7 +272,7 @@
 
 @keyframes coin-move {
     from { left: 100%; }
-    to { left: -60px; } /* Ajustado para sumir totalmente da tela antes de reiniciar */
+    to { left: -60px; }
 }
 
 @keyframes run-animation {
@@ -285,45 +293,49 @@
     }
 }
 
-
+/* Responsividade de Telas Pequenas Unificada e Limpa */
 @media (max-width: 768px) {
+    .background-panoramico {
+        background-size: auto 100%; 
+        animation: mover-cenario-fundo-celular 20s infinite linear;
+        animation-play-state: paused; 
+    }
+
     .game-board {
         height: 75vh;
     }
 
-    .mario{
+    .sky{
         width: 120px;
     }
 
     .pipe{
         width: 115px;
     }
+}
 
-    .clouds {
-        width: 450px;
+@keyframes mover-cenario-fundo-celular {
+    from {
+        background-position: 0px bottom;
     }
-
-
+    to { 
+        background-position: -888px bottom; 
+    }
 }
 
 @media (orientation: landscape){ 
     .game-board {
         height: 75vh; 
-        } 
+    } 
 
-    .mario { 
+    .sky { 
         width: 120px; 
     } 
 
     .pipe { 
         width: 115px;
-     }
-
-    .clouds{
-        width: 450px;
-     }
-
     }
+}
 
 body{
     overflow: hidden;

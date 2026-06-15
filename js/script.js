@@ -5,7 +5,12 @@ const startScreen = document.querySelector('.start');
 const coin = document.querySelector('.coin');
 const scoreDisplay = document.querySelector('.score');
 const restartButton = document.getElementById('restart');
-const fundo = document.querySelector('.background-panoramico'); // Seleciona o fundo panorâmico
+const fundo = document.querySelector('.background-panoramico');
+const musicGame = new Audio('../songs/sky-background-music.mp3')
+
+musicGame.loop = true;
+console.log("Loop:", musicGame.loop);
+musicGame.volume = 0.3;
 
 let gameStarted = false;
 let coinCollected = false;
@@ -23,6 +28,8 @@ const jump = (event) => {
 };
 
 startButton.addEventListener('click', () => {
+    musicGame.play();
+
     if (fundo) fundo.style.animationPlayState = 'running'; // Inicia o fundo se ele existir
 
     gameStarted = true;
@@ -91,6 +98,9 @@ const loop = () => {
 
         if (restartButton) {
             restartButton.style.setProperty('display', 'block', 'important');
+
+            musicGame.pause();
+            musicGame.currentTime = 0;
         }
         return; 
     }

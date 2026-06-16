@@ -3,10 +3,11 @@ const pipe = document.querySelector('.pipe');
 const startButton = document.querySelector('.start-game');
 const startScreen = document.querySelector('.start');
 const coin = document.querySelector('.coin');
-const scoreDisplay = document.querySelector('.score');
 const restartButton = document.getElementById('restart');
 const fundo = document.querySelector('.background-panoramico');
 const musicGame = new Audio('songs/sky-background-music.mp3')
+const gameOverInfo = document.querySelector('.game-over-info');
+
 
 musicGame.loop = true;
 console.log("Loop:", musicGame.loop);
@@ -16,6 +17,14 @@ let gameStarted = false;
 let coinCollected = false;
 let score = 0;
 let hasScored = false;
+
+const scoreDisplay = document.querySelector('.score');
+const recordDisplay = document.querySelector('.record');
+
+let highScore = localStorage.getItem('highScore') || 0;
+
+recordDisplay.textContent = `Recorde: ${highScore}`;
+
 
 const jump = (event) => {
     event?.preventDefault();
@@ -30,7 +39,7 @@ const jump = (event) => {
 startButton.addEventListener('click', () => {
     musicGame.play();
 
-    if (fundo) fundo.style.animationPlayState = 'running'; // Inicia o fundo se ele existir
+    if (fundo) fundo.style.animationPlayState = 'running'; 
 
     gameStarted = true;
     startScreen.style.display = 'none';
@@ -71,6 +80,14 @@ const loop = () => {
         coin.style.opacity = '0'; 
         score++;
         scoreDisplay.textContent = score;
+
+        if (score > highScore) {
+            highScore = score;
+            localStorage.setItem('highScore', highScore);
+            recordDisplay.textContent = `Recorde: ${highScore}`;
+        }
+
+        scoreDisplay.textContent = score;
     }
 
     const pipeWidth = pipe.clientWidth;
@@ -86,6 +103,11 @@ const loop = () => {
 
         sky.style.animation = 'none';
         sky.style.bottom = `${skyPosition}px`;
+
+        gameOverInfo.textContent = 
+        `Pontos: ${score} | Recorde: ${highScore}`;
+
+        gameOverInfo.style.display = 'block';
 
        
         if (fundo) fundo.style.animationPlayState = 'paused';

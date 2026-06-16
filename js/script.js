@@ -6,7 +6,7 @@ const coin = document.querySelector('.coin');
 const scoreDisplay = document.querySelector('.score');
 const restartButton = document.getElementById('restart');
 const fundo = document.querySelector('.background-panoramico');
-const musicGame = new Audio('../songs/sky-background-music.mp3')
+const musicGame = new Audio('songs/sky-background-music.mp3')
 
 musicGame.loop = true;
 console.log("Loop:", musicGame.loop);

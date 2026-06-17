@@ -60,7 +60,7 @@
 
     background-image: url(../img/ceu-completo.png);
 
-      background-position: center bottom; 
+    background-position: center bottom; 
     background-repeat: no-repeat; 
 
     background-size: 120vw 100%;       
@@ -78,13 +78,10 @@
     width: 300px;
     height: auto;
     image-rendering: pixelated;
-
     transform: translateY(25px);
 
-    animation:pipe-animation 1.7s infinite linear ;
-    animation-play-state: paused;
-
-    z-index: 1;
+    z-index: 5;
+    display: none;
 }
 
 .sky-idle{
@@ -99,10 +96,11 @@
 
 .sky {
     position: absolute;
+    overflow: hidden;
     width: 120px;
     height: 120px;
     bottom: 0;
-    z-index: 2;
+    z-index: 10;
 }
 
 .sky-run {

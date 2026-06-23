@@ -17,11 +17,11 @@
     flex-direction: column;
     align-items:center ;
     justify-content:center;
-    background-color: rgba(0, 0, 0, 0.866);
+    background-color: rgba(30, 30, 30, 0.866);
 }
 
 .titulo-iniciar{
-    background-color: #5d696db6;
+    background-color: #4b4d4eb6;
     color: white;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border-radius: 5px;
